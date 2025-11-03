@@ -3896,9 +3896,23 @@ scrollBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 });
+
+      // Capitalize each word
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, char => char.toUpperCase()).trim();
+}
+
+// Example usage with your students array
+students = students.map(s => ({
+  firstName: capitalizeWords(s.FirstName),
+  lastName: capitalizeWords(s.Lastname),
+  username: s.username
+}));
+
 </script>
 
 </body>
 </html>
+
 
 
