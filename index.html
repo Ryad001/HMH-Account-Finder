@@ -4,53 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HMH Account Lookup</title>
+<link rel="shortcut icon" href="icon.png" type="image/x-icon">
 <style>
-body {font-family:Arial, Helvetica, sans-serif;background:#f4f6fb;margin:0;padding:20px;}
-.container {max-width:700px;margin:0 auto;background:#fff;padding:25px;border-radius:12px;
-            box-shadow:0 6px 20px rgba(0,0,0,0.08);}
-h2{text-align:center;margin-bottom:20px;}
-input, select{padding:10px;border:1px solid #ccc;border-radius:8px;width:calc(100% - 24px);margin-bottom:10px;}
-button{background:#0b63d6;color:#fff;border:none;padding:10px 15px;border-radius:8px;cursor:pointer;font-weight:bold;}
-.result{margin-top:15px;padding:10px;border-radius:6px;background:#f0f4ff;font-weight:bold;color:#0b3b86;}
-.error{margin-top:15px;color:#b91c1c;font-weight:bold;}
-table{width:100%;border-collapse:collapse;margin-top:20px;}
-th,td{border:1px solid #ddd;padding:8px;text-align:left;}
-th{background:#f3f4f6;}
-.search-input{width:100%;padding:8px;border-radius:6px;border:1px solid #ccc;margin-bottom:10px;
-}
-.hmh-instructions {
-  background: #f0f4ff;
-  border-left: 6px solid #0b63d6;
-  padding: 16px 20px;
-  border-radius: 10px;
-  margin-top: 25px;
-  color: #0b3b86;
-  font-size: 15px;
-  line-height: 1.6;
-}
-.hmh-instructions h3 {
-  margin-top: 0;
-  color: #0b3b86;
-  font-size: 17px;
-}
-.hmh-instructions a {
-  color: #0b63d6;
-  font-weight: bold;
-  text-decoration: none;
-}
-.hmh-instructions a:hover {
-  text-decoration: underline;
-}
-.hmh-instructions ul {
-  margin: 6px 0 6px 25px;
-}
-/* ===== General Layout ===== */
-body {
+  body {
   font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-  background: linear-gradient(135deg, #e8efff, #f8fbff);
+  background: #fff;
   margin: 0;
   padding: 0;
-  color: #1f2937;
+  color: #332222; 
 }
 
 .container {
@@ -59,7 +20,7 @@ body {
   background: #fff;
   padding: 35px;
   border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 40px rgba(147,36,45,0.15); /* ظل خفيف باللون الأحمر */
   transition: transform 0.3s ease;
 }
 .container:hover {
@@ -69,7 +30,7 @@ body {
 /* ===== Headings ===== */
 h1, h2, h3 {
   font-weight: 700;
-  color: #0b3b86;
+  color: #93242D;
   text-align: center;
 }
 
@@ -78,21 +39,21 @@ input {
   padding: 10px 12px;
   margin: 5px 0;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #93242D;
   width: calc(50% - 10px);
   transition: border-color 0.3s ease;
 }
 input:focus {
-  border-color: #0b63d6;
+  border-color: #93242D;
   outline: none;
-  box-shadow: 0 0 6px rgba(11,99,214,0.3);
+  box-shadow: 0 0 6px rgba(147,36,45,0.3);
 }
 
 button {
   display: block;
   margin: 15px auto;
   padding: 10px 24px;
-  background: #0b63d6;
+  background: #93242D;
   color: white;
   border: none;
   border-radius: 8px;
@@ -101,7 +62,22 @@ button {
   transition: background 0.3s ease;
 }
 button:hover {
-  background: #094fb1;
+  background: #6e1b23;
+}
+
+/* ===== Result & Error Boxes ===== */
+.result {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  background: #fce8e8; /* فاتح أحمر */
+  font-weight: bold;
+  color: #93242D;
+}
+.error {
+  margin-top: 15px;
+  color: #b91c1c;
+  font-weight: bold;
 }
 
 /* ===== Table Styling ===== */
@@ -115,14 +91,42 @@ table {
 table th, table td {
   padding: 10px;
   text-align: left;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid #f5e5e5;
 }
 table th {
-  background: #f3f4f6;
+  background: #fdf0f0;
   font-weight: 600;
+  color: #93242D;
 }
 table tr:hover {
-  background: #f9fafb;
+  background: #fff0f0;
+}
+
+/* ===== HM Instructions Box ===== */
+.hmh-instructions {
+  background: #fff0f0;
+  border-left: 6px solid #93242D;
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin-top: 25px;
+  color: #93242D;
+  font-size: 15px;
+  line-height: 1.6;
+}
+.hmh-instructions h3 {
+  margin-top: 0;
+  font-size: 17px;
+}
+.hmh-instructions a {
+  color: #93242D;
+  font-weight: bold;
+  text-decoration: none;
+}
+.hmh-instructions a:hover {
+  text-decoration: underline;
+}
+.hmh-instructions ul {
+  margin: 6px 0 6px 25px;
 }
 
 /* ===== Responsive ===== */
@@ -138,7 +142,7 @@ table tr:hover {
   }
   table tr {
     margin-bottom: 10px;
-    background: #f9f9f9;
+    background: #fff0f0;
     border-radius: 10px;
     padding: 10px;
   }
@@ -154,7 +158,7 @@ table tr:hover {
 /* ===== Footer ===== */
 footer {
   text-align: center;
-  background: #0b3b86;
+  background: #93242D;
   color: white;
   padding: 20px 10px;
   margin-top: 40px;
@@ -170,7 +174,7 @@ footer .credit {
   letter-spacing: 0.5px;
 }
 footer a {
-  color: #9ec9ff;
+  color: #ffd7d7;
   text-decoration: none;
 }
 footer a:hover {
@@ -200,11 +204,7 @@ footer a:hover {
     justify-content: center;
     position: sticky;
   }
-  header img{
-    width: 300px;
-    height: 300px;
-
-  }
+  
 </style>
     <h1>International Academy of Iraq</h1>
     <p>Student Portal – HMH Access</p>
@@ -247,7 +247,7 @@ footer a:hover {
 </div>
 <style>
   #toggleListBtn {
-  background: #0b63d6;
+  background: #93242D;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -258,12 +258,15 @@ footer a:hover {
   font-size: 15px;
 }
 #toggleListBtn:hover {
-  background: #094fb1;
+  background: #6e1b23; 
   transform: scale(1.02);
 }
+
 #directoryContainer {
   animation: fadeIn 0.4s ease;
 }
+
+/* Fade in animation */
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(-10px);}
   to {opacity: 1; transform: translateY(0);}
@@ -3764,29 +3767,58 @@ toggleBtn.addEventListener('click', () => {
 })();
 </script>
 <button id="scrollBtn" title="Scroll" class="scroll-btn">↓</button>
-<style>/* ===== Scroll Button Styles ===== */
+<style>
+  /* ===== Modern Scroll Button ===== */
 .scroll-btn {
   position: fixed;
   bottom: 25px;
   right: 25px;
-  background: #0b3b86;
-  color: white;
+  background: #93242D;       /* اللون الرئيسي */
+  color: #fff;
   border: none;
   border-radius: 50%;
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   font-size: 26px;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 20px rgba(147,36,45,0.35); /* ظل أحمر ناعم */
   transition: all 0.3s ease;
   z-index: 1000;
-  display: none; /* Hidden initially */
+  display: none; /* مخفي في البداية */
+  backdrop-filter: blur(4px); /* تأثير حديث */
 }
 
 .scroll-btn:hover {
-  background: #0b63d6;
-  transform: scale(1.1);
+  background: #6e1b23;       /* أغمق عند التحويم */
+  transform: scale(1.15) rotate(10deg); /* حركة خفيفة */
+  box-shadow: 0 8px 25px rgba(147,36,45,0.5);
 }
+
+.scroll-btn::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
+  margin: 4px auto 0;
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-6px); }
+}
+
+/* Responsive adjustment */
+@media (max-width: 600px) {
+  .scroll-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+}
+
 </style>
 
 <script>
