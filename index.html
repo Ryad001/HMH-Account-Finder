@@ -3843,6 +3843,60 @@ toggleBtn.addEventListener('click', () => {
   // You can also combine this with server-side checks (recommended)
 })();
 </script>
+<button id="scrollBtn" title="Scroll" class="scroll-btn">↓</button>
+<style>/* ===== Scroll Button Styles ===== */
+.scroll-btn {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #0b3b86;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: none; /* Hidden initially */
+}
+
+.scroll-btn:hover {
+  background: #0b63d6;
+  transform: scale(1.1);
+}
+</style>
+
+<script>
+// ===== Scroll Button Script =====
+const scrollBtn = document.getElementById("scrollBtn");
+
+window.addEventListener("scroll", () => {
+  // Show button after scrolling a bit
+  if (window.scrollY > 200) {
+    scrollBtn.style.display = "block";
+  } else {
+    scrollBtn.style.display = "none";
+  }
+
+  // Change symbol based on scroll position
+  if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+    scrollBtn.textContent = "↑"; // bottom → show up
+  } else {
+    scrollBtn.textContent = "↓"; // top → show down
+  }
+});
+
+scrollBtn.addEventListener("click", () => {
+  if (scrollBtn.textContent === "↓") {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+  } else {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
+</script>
 
 </body>
 </html>
