@@ -180,117 +180,32 @@ footer a:hover {
 </style>
 </head>
 <body>
-  <header class="simple-header" id="mainHeader">
+  
+
+<div class="container">
+  <header class="simple-header">
   <img src="school-logo.png" alt="School Logo" class="simple-logo">
   
 </header>
-
-<style>
-  /* ===== Smooth Shrinking Header ===== */
-.simple-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(135deg, #0b3b86, #0b63d6);
-  color: white;
-  text-align: center;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  transition: padding 0.4s ease, background 0.4s ease;
-  z-index: 1000;
-}
-
-.simple-header.shrink {
-  padding: 0;
-  height: 100px;
-  background: linear-gradient(135deg, #3b7fe6, #0b3b86);
-}
-
-.simple-logo {
-  margin-bottom: 50%;
-  width: 300px;
-  height: 300px;
-  transition: width 0.4s ease, height 0.4s ease, margin-bottom 0.4s ease;
-}
-
-.simple-header.shrink .simple-logo {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 5px;
-  
-}
-
-.simple-header.shrink{
-  display:flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header-text h1 {
-  margin: 0;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  transition: font-size 0.4s ease;
-  color: white;
-}
-
-.simple-header.shrink .header-text h1 {
-  font-size: 18px;
-}
-
-.header-text p {
-  margin: 4px 0 0;
-  font-size: 15px;
-  color: #e0eaff;
-  font-weight: 500;
-  transition: font-size 0.4s ease;
-}
-
-.simple-header.shrink .header-text p {
-  font-size: 13px;
-}
-
-/* Make room for fixed header */
-body {
-  padding-top: 160px;
-}
-
-/* Responsive adjustment */
-@media (max-width: 600px) {
-  .simple-logo {
-    width: 70px;
-    height: 70px;
-  }
-  .simple-header.shrink .simple-logo {
-    width: 100px;
-    height: 100px;
-  }
-  .header-text h1 { font-size: 18px; }
-  .simple-header.shrink .header-text h1 { font-size: 16px; }
-}
-
-</style>
-
-
-<script>
-  // Shrink header on scroll
-const header = document.getElementById("mainHeader");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    header.classList.add("shrink");
-  } else {
-    header.classList.remove("shrink");
-  }
-});
-
-</script>
-<div class="container">
 <div class="school-header" style="text-align:center;">
   <div class="school-title">
+    
+
+<style>
+  header{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+  }
+  header img{
+    width: 300px;
+    height: 300px;
+
+  }
+</style>
     <h1>International Academy of Iraq</h1>
     <p>Student Portal – HMH Access</p>
   </div>
@@ -3082,7 +2997,7 @@ let students = [
   },
   {
     "FirstName": "ALFADHEL",
-    "Lastname": "AL -BATTAT",
+    "Lastname": "AL-BATTAT",
     "username": "akd2s1269"
   },
   {
@@ -3201,8 +3116,8 @@ let students = [
     "username": "akd2s1139"
   },
   {
-    "FirstName": "AL -HUSSEIN",
-    "Lastname": "AL -BATTAT",
+    "FirstName": "AL-HUSSEIN",
+    "Lastname": "AL-BATTAT",
     "username": "akd2s1267"
   },
   {
@@ -3227,7 +3142,7 @@ let students = [
   },
   {
     "FirstName": "HAMZAH",
-    "Lastname": "AL -BATTAT",
+    "Lastname": "AL-BATTAT",
     "username": "akd2s1268"
   },
   {
@@ -3673,6 +3588,17 @@ function renderTable(list){
     tbody.appendChild(tr);
   });
 }
+function capitalizeWords(str) {
+  return str.replace(/\b\w/g, char => char.toUpperCase()).trim();
+}
+
+// Capitalize all names in the array
+students = students.map(s => ({
+  FirstName: capitalizeWords(s.FirstName),
+  Lastname: capitalizeWords(s.Lastname),
+  username: s.username 
+}));
+
 renderTable(students);
 
 // search filter
@@ -3722,7 +3648,7 @@ toggleBtn.addEventListener('click', () => {
 
 <footer>
   <p class="credit">© 2025 International Academy of Iraq</p>
-  <p>Developed & Maintained by <strong>Ryad Amghar</strong> — ICT Teacher & Technical Support Specialist</p>
+  <p>Developed & Maintained by <strong>Mr. Ryad</strong> — ICT Teacher & Technical Support</p>
   <p><a href="https://www.hmhco.com/ui/login" target="_blank">HMH Learning Portal</a></p>
 </footer>
 <!-- Put this near the end of <body> -->
@@ -3896,23 +3822,7 @@ scrollBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 });
-
-      // Capitalize each word
-function capitalizeWords(str) {
-  return str.replace(/\b\w/g, char => char.toUpperCase()).trim();
-}
-
-// Example usage with your students array
-students = students.map(s => ({
-  firstName: capitalizeWords(s.FirstName),
-  lastName: capitalizeWords(s.Lastname),
-  username: s.username
-}));
-
 </script>
 
 </body>
 </html>
-
-
-
