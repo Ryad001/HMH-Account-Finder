@@ -44,13 +44,252 @@ th{background:#f3f4f6;}
 .hmh-instructions ul {
   margin: 6px 0 6px 25px;
 }
+/* ===== General Layout ===== */
+body {
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  background: linear-gradient(135deg, #e8efff, #f8fbff);
+  margin: 0;
+  padding: 0;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+.container:hover {
+  transform: translateY(-3px);
+}
+
+/* ===== Headings ===== */
+h1, h2, h3 {
+  font-weight: 700;
+  color: #0b3b86;
+  text-align: center;
+}
+
+/* ===== Inputs & Buttons ===== */
+input {
+  padding: 10px 12px;
+  margin: 5px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: calc(50% - 10px);
+  transition: border-color 0.3s ease;
+}
+input:focus {
+  border-color: #0b63d6;
+  outline: none;
+  box-shadow: 0 0 6px rgba(11,99,214,0.3);
+}
+
+button {
+  display: block;
+  margin: 15px auto;
+  padding: 10px 24px;
+  background: #0b63d6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: #094fb1;
+}
+
+/* ===== Table Styling ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+table th {
+  background: #f3f4f6;
+  font-weight: 600;
+}
+table tr:hover {
+  background: #f9fafb;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
+  }
+  input {
+    width: 100%;
+  }
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  table tr {
+    margin-bottom: 10px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  table th {
+    display: none;
+  }
+  table td {
+    border: none;
+    padding: 5px 0;
+  }
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  background: #0b3b86;
+  color: white;
+  padding: 20px 10px;
+  margin-top: 40px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+footer p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+footer .credit {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+footer a {
+  color: #9ec9ff;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
 
 </style>
 </head>
 <body>
+  <header class="simple-header" id="mainHeader">
+  <img src="school-logo.png" alt="School Logo" class="simple-logo">
+  
+</header>
+
+<style>
+  /* ===== Smooth Shrinking Header ===== */
+.simple-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(135deg, #0b3b86, #0b63d6);
+  color: white;
+  text-align: center;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: padding 0.4s ease, background 0.4s ease;
+  z-index: 1000;
+}
+
+.simple-header.shrink {
+  padding: 0;
+  height: 100px;
+  background: linear-gradient(135deg, #3b7fe6, #0b3b86);
+}
+
+.simple-logo {
+  margin-bottom: 50%;
+  width: 300px;
+  height: 300px;
+  transition: width 0.4s ease, height 0.4s ease, margin-bottom 0.4s ease;
+}
+
+.simple-header.shrink .simple-logo {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 5px;
+  
+}
+
+.simple-header.shrink{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: font-size 0.4s ease;
+  color: white;
+}
+
+.simple-header.shrink .header-text h1 {
+  font-size: 18px;
+}
+
+.header-text p {
+  margin: 4px 0 0;
+  font-size: 15px;
+  color: #e0eaff;
+  font-weight: 500;
+  transition: font-size 0.4s ease;
+}
+
+.simple-header.shrink .header-text p {
+  font-size: 13px;
+}
+
+/* Make room for fixed header */
+body {
+  padding-top: 160px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 600px) {
+  .simple-logo {
+    width: 70px;
+    height: 70px;
+  }
+  .simple-header.shrink .simple-logo {
+    width: 100px;
+    height: 100px;
+  }
+  .header-text h1 { font-size: 18px; }
+  .simple-header.shrink .header-text h1 { font-size: 16px; }
+}
+
+</style>
+
+
+<script>
+  // Shrink header on scroll
+const header = document.getElementById("mainHeader");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) {
+    header.classList.add("shrink");
+  } else {
+    header.classList.remove("shrink");
+  }
+});
+
+</script>
 <div class="container">
 <div class="school-header" style="text-align:center;">
-  <img src="school-logo.png" alt="School Logo" class="school-logo" style="width:250px; height:250px; ">
   <div class="school-title">
     <h1>International Academy of Iraq</h1>
     <p>Student Portal – HMH Access</p>
@@ -80,6 +319,41 @@ th{background:#f3f4f6;}
   </ol>
 </div>
 <br>
+<button id="toggleListBtn">Show Student Directory</button>
+<div id="directoryContainer" style="display:none;">
+  <input type="text" id="search" class="search-input" placeholder="Search by name...">
+  <table id="studentTable">
+    <thead>
+      <tr><th>First Name</th><th>Last Name</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+<style>
+  #toggleListBtn {
+  background: #0b63d6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  font-size: 15px;
+}
+#toggleListBtn:hover {
+  background: #094fb1;
+  transform: scale(1.02);
+}
+#directoryContainer {
+  animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(-10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+</style>
   <h3>Student Directory</h3>
   <input type="text" id="search" class="search-input" placeholder="Search by name...">
   <table id="studentTable">
@@ -3433,6 +3707,142 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
   resultDiv.innerHTML = `<strong>HMH Username:</strong> ${email}<br><strong>Password:</strong> ${password}`;
   resultDiv.style.display='block';
 });
+
+// Toggle student directory visibility
+const toggleBtn = document.getElementById('toggleListBtn');
+const directoryContainer = document.getElementById('directoryContainer');
+
+toggleBtn.addEventListener('click', () => {
+  const isHidden = directoryContainer.style.display === 'none';
+  directoryContainer.style.display = isHidden ? 'block' : 'none';
+  toggleBtn.textContent = isHidden ? 'Hide Student Directory' : 'Show Student Directory';
+});
+
 </script>
+
+<footer>
+  <p class="credit">© 2025 International Academy of Iraq</p>
+  <p>Developed & Maintained by <strong>Mr. Ryad</strong> — ICT Teacher & Technical Support</p>
+  <p><a href="https://www.hmhco.com/ui/login" target="_blank">HMH Learning Portal</a></p>
+</footer>
+<!-- Put this near the end of <body> -->
+<script>
+/*  ====== Anti-DevTools / deterrent script ======
+    - Not foolproof. Raises barrier for casual users.
+    - You can customize behavior (redirect, overlay, console wipe).
+*/
+
+(function(){
+  // ---------- Helpers ----------
+  function showOverlay(message) {
+    if (document.getElementById('dev-guard-overlay')) return;
+    const ov = document.createElement('div');
+    ov.id = 'dev-guard-overlay';
+    ov.style.position = 'fixed';
+    ov.style.top = '0';
+    ov.style.left = '0';
+    ov.style.right = '0';
+    ov.style.bottom = '0';
+    ov.style.background = 'rgba(11,63,128,0.95)';
+    ov.style.color = '#fff';
+    ov.style.zIndex = '99999';
+    ov.style.display = 'flex';
+    ov.style.alignItems = 'center';
+    ov.style.justifyContent = 'center';
+    ov.style.flexDirection = 'column';
+    ov.style.padding = '20px';
+    ov.innerHTML = '<div style="max-width:700px;text-align:center;">' +
+                   '<h2 style="margin:0 0 8px;font-family:Inter,Arial;">Security Notice</h2>' +
+                   '<p style="opacity:0.95;line-height:1.5;">'+(message||'Unauthorized inspection detected. Access is restricted.')+'</p>' +
+                   '<button id="dev-guard-close" style="margin-top:18px;padding:10px 16px;border-radius:8px;border:none;background:#fff;color:#0b3b86;cursor:pointer;font-weight:600">Close</button>' +
+                   '</div>';
+    document.body.appendChild(ov);
+    document.getElementById('dev-guard-close').addEventListener('click', ()=>{
+      ov.remove();
+    });
+  }
+
+  // ---------- Disable right-click ----------
+  window.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    // optional: show small toast
+    // showOverlay('Right click is disabled for security reasons.');
+    return false;
+  });
+
+  // ---------- Disable common keyboard shortcuts ----------
+  window.addEventListener('keydown', function(e) {
+    // F12
+    if (e.keyCode === 123) {
+      e.preventDefault();
+      showOverlay('This action is restricted.');
+      return false;
+    }
+    // Ctrl+Shift+I / Ctrl+Shift+C / Ctrl+Shift+J
+    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c' || e.key === 'J' || e.key === 'j')) {
+      e.preventDefault();
+      showOverlay('This action is restricted.');
+      return false;
+    }
+    // Ctrl+U (view-source), Ctrl+Shift+S (save as), Ctrl+S
+    if ( (e.ctrlKey && e.key === 'u') || (e.ctrlKey && e.key === 'U') || (e.ctrlKey && e.key === 's') || (e.ctrlKey && e.key === 'S') ) {
+      e.preventDefault();
+      showOverlay('This action is restricted.');
+      return false;
+    }
+    // Ctrl+Shift+K (Firefox devtools)
+    if (e.ctrlKey && e.shiftKey && (e.key === 'K' || e.key === 'k')) {
+      e.preventDefault();
+      showOverlay('This action is restricted.');
+      return false;
+    }
+  });
+
+  // ---------- Attempt to detect DevTools by window dimensions ----------
+  let devtoolsOpen = false;
+  function detectDevToolsBySize() {
+    const threshold = 160; // pixels difference threshold (tune as needed)
+    const widthDiff = window.outerWidth - window.innerWidth;
+    const heightDiff = window.outerHeight - window.innerHeight;
+    if (widthDiff > threshold || heightDiff > threshold) {
+      if (!devtoolsOpen) {
+        devtoolsOpen = true;
+        // Action on detection: overlay, redirect or log
+        showOverlay('Developer tools detected. For security reasons, the session is blocked.');
+        // Optionally redirect: window.location.href = 'about:blank';
+      }
+    } else {
+      devtoolsOpen = false;
+    }
+  }
+  // check on interval (lightweight)
+  setInterval(detectDevToolsBySize, 1000);
+
+  // ---------- Extra detection: toString trick (works on some browsers) ----------
+  (function() {
+    const start = Date.now();
+    debugger; // when developer tools are open, this may pause differently
+    const took = Date.now() - start;
+    if (took > 100) {
+      // likely paused because debugger opened
+      showOverlay('Debugger detected. Access restricted.');
+    }
+  })();
+
+  // ---------- Obfuscate console output (deters casual snooping) ----------
+  try {
+    // override console methods to make output less useful
+    ['log','warn','info','error','debug'].forEach(fn=>{
+      if (console[fn]) {
+        console[fn] = function(){ /* no-op to reduce leakage */ };
+      }
+    });
+  } catch(e){ /* ignore */ }
+
+  // ---------- Final note (no full security guarantee) ----------
+  // You can also combine this with server-side checks (recommended)
+})();
+</script>
+
 </body>
 </html>
