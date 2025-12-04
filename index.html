@@ -3299,7 +3299,20 @@ document.getElementById('checkBtn').addEventListener('click', ()=>{
 
   const email = normalize(student.FirstName)+"."+normalize(student.Lastname).replace(/\s+/g,'')+"@iaoiraq";
   const password = "Student1";
-  resultDiv.innerHTML = `<strong>HMH Username:</strong> ${email}<br><strong>Password:</strong> ${password}`;
+  resultDiv.innerHTML = `
+  <div class="resultRow">
+    <strong>HMH Username:</strong> 
+    <span id="hmhUser">${email.trim()}</span>
+    <button class="copyBtn" onclick="copyValue('hmhUser')">Copy</button>
+  </div>
+
+  <div class="resultRow">
+    <strong>Password:</strong> 
+    <span id="hmhPass">${password.trim()}</span>
+    <button class="copyBtn" onclick="copyValue('hmhPass')">Copy</button>
+  </div>
+`;
+
   resultDiv.style.display='block';
 });
 
@@ -3540,9 +3553,95 @@ scrollBtn.addEventListener("click", () => {
   }
 });
 </script>
+<style>
+  .resultRow {
+  display: flex;
+  align-items: center;     /* vertical alignment */
+  margin: 6px 0;
+  /* flex-wrap: nowrap; */
+}
 
+
+
+.resultRow span {
+  font-weight: bold;
+  color: #93242D;
+}
+
+.copyBtn {
+  padding: 4px 10px;
+  font-size: 13px;
+  background: #93242D;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;     /* prevents button wrapping */
+  transition: background 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: #6e1b23;
+}
+
+
+.copyBtn {
+  padding: 5px 12px;
+  font-size: 13px;
+  background: #93242D;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: #6e1b23;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  background: #93242D;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 99999;
+}
+.toast.show {
+  opacity: 1;
+}
+</style>
+  <div id="toast" class="toast">Copied!</div>
+<script>
+  function copyValue(id) {
+  const value = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(value).then(() => {
+    showToast("Copied!");
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1500);
+}
+
+</script>
 </body>
 </html>
+
 
 
 
