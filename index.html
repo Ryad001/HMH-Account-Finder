@@ -3730,8 +3730,83 @@ function showToast(msg) {
 }
 
 </script>
+
+  <div id="floatingVideo">
+  <div class="floatingVideo-title">How to access HMH account</div>
+  <video src="hmh.mp4" controls></video>
+</div>
+
+<style>
+  #floatingVideo {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;      /* مكان البداية */
+  z-index: 9999;
+  width: 320px;    /* الحجم الافتراضي */
+  cursor: grab;
+  border-radius: 12px;
+  
+}
+
+#floatingVideo video {
+  width: 100%;
+  border-radius: 0 0 12px 12px;
+  display: block;
+}
+
+.floatingVideo-title {
+  background: #93242D;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  padding: 6px 10px;
+  border-radius: 12px 12px 0 0;
+  user-select: none;  /* منع التحديد عند السحب */
+}
+
+</style>
+
+<script>
+const floating = document.getElementById("floatingVideo");
+
+let isDragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+floating.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  offsetX = e.clientX - floating.offsetLeft;
+  offsetY = e.clientY - floating.offsetTop;
+  floating.style.cursor = "grabbing";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  let left = e.clientX - offsetX;
+  let top = e.clientY - offsetY;
+
+  // حدود الشاشة
+  const maxLeft = window.innerWidth - floating.offsetWidth;
+  const maxTop = window.innerHeight - floating.offsetHeight;
+  if (left < 0) left = 0;
+  if (top < 0) top = 0;
+  if (left > maxLeft) left = maxLeft;
+  if (top > maxTop) top = maxTop;
+
+  floating.style.left = left + "px";
+  floating.style.top = top + "px";
+});
+
+document.addEventListener("mouseup", () => {
+  isDragging = false;
+  floating.style.cursor = "grab";
+});
+</script>
+
 </body>
 </html>
+
 
 
 
