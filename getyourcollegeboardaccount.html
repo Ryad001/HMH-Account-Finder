@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Get your College Board email</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EAF1FA;--card:#fff;--ink:#12213F;--muted:#5B6B86;--line:#D3DEEE;--brand:#1746D6;--brand-ink:#fff;--soft:#DCE7FB;--ok:#0E7A4B;--hl:#FFD23F;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0D1526;--card:#16213A;--ink:#EAF0FB;--muted:#9AABC8;--line:#2A3960;--brand:#6C93FF;--brand-ink:#0D1526;--soft:#22315A;--ok:#5FD39B}}
+:root[data-theme="dark"]{--bg:#0D1526;--card:#16213A;--ink:#EAF0FB;--muted:#9AABC8;--line:#2A3960;--brand:#6C93FF;--brand-ink:#0D1526;--soft:#22315A;--ok:#5FD39B}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;line-height:1.5}
+main{max-width:640px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:clamp(28px,7vw,40px);line-height:1.15;margin:0 0 8px;font-weight:700;letter-spacing:-.02em}
+.lead{color:var(--muted);margin:0 0 28px;font-size:17px}
+.step{margin-bottom:22px}
+.step h2{font-size:16px;margin:0 0 10px;font-weight:600;display:flex;align-items:center;gap:10px}
+.step h2 span{background:var(--brand);color:var(--brand-ink);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:14px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tab{font:inherit;font-size:20px;font-weight:600;padding:16px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+input[type=search]{width:100%;font:inherit;font-size:17px;padding:15px 16px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink)}
+input::placeholder{color:var(--muted)}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px}
+input:focus{border-color:var(--brand)}
+ul{list-style:none;margin:12px 0 0;padding:0;background:var(--card);border:2px solid var(--line);border-radius:14px;max-height:340px;overflow-y:auto}
+li button{width:100%;text-align:left;font:inherit;font-size:16px;padding:14px 16px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);cursor:pointer;display:block}
+li:last-child button{border-bottom:0}
+li button:hover{background:var(--soft)}
+li button[aria-current="true"]{background:var(--soft);font-weight:600;box-shadow:inset 5px 0 0 var(--brand)}
+.empty{padding:18px 16px;color:var(--muted)}
+.result{background:var(--card);border:2px solid var(--brand);border-radius:18px;padding:20px}
+.result h3{margin:0 0 14px;font-size:20px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:14px;color:var(--muted);margin-bottom:5px}
+.row{display:flex;gap:8px;align-items:stretch}
+.val{flex:1;min-width:0;background:var(--bg);border-radius:10px;padding:12px 14px;font-size:16px;font-weight:500;word-break:break-all;user-select:all}
+.copy{font:inherit;font-weight:600;font-size:15px;padding:0 16px;border-radius:10px;border:0;background:var(--brand);color:var(--brand-ink);cursor:pointer;min-width:84px}
+.copy.done{background:var(--ok);color:#fff}
+.go{display:block;text-align:center;text-decoration:none;font-weight:600;font-size:17px;padding:16px;border-radius:12px;background:var(--hl);color:#12213F;margin-top:18px}
+.go:hover{filter:brightness(.95)}
+.note a{color:var(--brand)}
+.note{margin:16px 0 0;font-size:14px;color:var(--muted)}
+.hidden{display:none}
+footer{margin-top:28px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Get your College Board email</h1>
+  <p class="lead">Find your name, then copy your email and password to sign in.</p>
+
+  <section class="step">
+    <h2><span>1</span>Choose your class</h2>
+    <div class="tabs" id="tabs">
+      <button class="tab" data-c="9A" aria-pressed="true">Grade 9A</button>
+      <button class="tab" data-c="9B" aria-pressed="false">Grade 9B</button>
+    </div>
+  </section>
+
+  <section class="step">
+    <h2><span>2</span>Find your name</h2>
+    <input type="search" id="q" placeholder="Type your first name" autocomplete="off" aria-label="Search your name">
+    <ul id="list" aria-label="Student names"></ul>
+  </section>
+
+  <section class="step hidden" id="out">
+    <h2><span>3</span>Your login, then sign in</h2>
+    <div class="result" aria-live="polite">
+      <h3 id="name"></h3>
+      <div class="field"><label>Email</label>
+        <div class="row"><div class="val" id="email"></div><button class="copy" data-t="email">Copy</button></div></div>
+      <div class="field"><label>Password</label>
+        <div class="row"><div class="val" id="pw">Student1@</div><button class="copy" data-t="pw">Copy</button></div></div>
+      <a class="go" href="https://myap.collegeboard.org/login" target="_blank" rel="noopener">Go to College Board sign in</a>
+      <p class="note">Copy your email and password first, then paste them on the sign-in page. Or <a href="https://www.collegeboard.org" target="_blank" rel="noopener">open the College Board home page</a>.</p>
+      <p class="note">The password is the same for every student. Not your name? Pick again from the list above.</p>
+    </div>
+  </section>
+
+  <footer>Can't find your name? Ask your teacher.</footer>
+</main>
+<script>
+const DATA={"9A": [{"n": "AHMED MOHAMMED NAJI AL-TAMEEMI", "e": "ahmed.mohammed.naji.al-tameemi@iaoiraq.edu.iq"}, {"n": "ALFADHEL SAAD SHABEEB AL -BATTAT", "e": "alfadhel.saad.shabeeb@iaoiraq.edu.iq"}, {"n": "DUNA AZAD HASAN ALKRAY", "e": "duna.azad.hasan@iaoiraq.edu.iq"}, {"n": "FARAH KHALID ABDULLAH", "e": "farah.khalid.abdullah@iaoiraq.edu.iq"}, {"n": "FATIMAH HUSHAM ADNAN SHANOOF", "e": "fatimah.husham.adnan@iaoiraq.edu.iq"}, {"n": "HASAN AHMED HASAN AL-KHUZAIE", "e": "hasan.ahmed.hasan@iaoiraq.edu.iq"}, {"n": "HASAN MOHAMMED SADEQ AL-AHMEDI", "e": "hasan.mohammed.sadeq@iaoiraq.edu.iq"}, {"n": "HAYDER ODAY RAJAA AL-ALI", "e": "hayder.oday.rajaa@iaoiraq.edu.iq"}, {"n": "MALAK AHMED ABDULAALY", "e": "malak.ahmed.abdulaaly@iaoiraq.edu.iq"}, {"n": "MANSOOR MOHAMMED MANSOOR", "e": "mansoor.mohammed.mansoor@iaoiraq.edu.iq"}, {"n": "MUSTAFA ALI MAZIN ABDULWAHAB", "e": "mustafa.ali.mazin@iaoiraq.edu.iq"}, {"n": "NARGES MUSTAFA HUSEIN ALI", "e": "narges.mustafa.husein@iaoiraq.edu.iq"}, {"n": "NARJIS RAAD ISMAEL", "e": "narjis.raad.ismael@iaoiraq.edu.iq"}, {"n": "NOORULZAHRAA THAER HAMZAH", "e": "noorulzahraa.thaer.hamzah@iaoiraq.edu.iq"}, {"n": "REMAS AMMAR AKLO AL-FURAIJI", "e": "remas.ammar.aklo@iaoiraq.edu.iq"}, {"n": "RIDHA AYMEN MOHAMMED RIDHA", "e": "ridha.aymen.mohammed@iaoiraq.edu.iq"}, {"n": "ZAHRAA ABDULKAREEM ZAYER AL-MOZANI", "e": "zahraa.abdulkareem.zayer@iaoiraq.edu.iq"}, {"n": "ZAINAB AL-HAWRA AMMAR MATROUD", "e": "zainab.al-hawra.ammar@iaoiraq.edu.iq"}], "9B": [{"n": "ABDUALLAH AHMED NASRATA AL-SALMAN", "e": "abduallah.ahmed.nasrata@iaoiraq.edu.iq"}, {"n": "AHMED MOHAMMED IBRAHIM", "e": "ahmed.mohammed.ibrahim@iaoiraq.edu.iq"}, {"n": "DALIA MUHANNAD SALAH ALRADHI", "e": "dalia.muhannad.salah@iaoiraq.edu.iq"}, {"n": "DIMA ABDULKAREEM ZAYER AL-MOZANI", "e": "dima.abdulkareem@iaoiraq.edu.iq"}, {"n": "DIYAR MUATAZ ABDULLAH AL-RAHMANI", "e": "diyar.muataz@iaoiraq.edu.iq"}, {"n": "FATIMA ALI MOHAMMED HADI", "e": "fatima.ali.mohammed@iaoiraq.edu.iq"}, {"n": "FATIMA MOHAMAD JAWAD KADHIM ALYOUNIS", "e": "fatima.mohamad.jawad@iaoiraq.edu.iq"}, {"n": "FATIMAH ALI RASHAM ALMALIKI", "e": "fatimah.ali.rasham@iaoiraq.edu.iq"}, {"n": "GHADEER JAFAR FAWZI AL-BADRAN", "e": "ghadeer.jafar@iaoiraq.edu.iq"}, {"n": "HAIDER MANAF GHAZI AL-AJWAD", "e": "haider.manaf@iaoiraq.edu.iq"}, {"n": "LAYTH HUSSIN ABDULAMEER ALYAHYOY", "e": "layth.hussin@iaoiraq.edu.iq"}, {"n": "MOHAMMED MAAN LATEEF ABED", "e": "mohammed.maan@iaoiraq.edu.iq"}, {"n": "MOHAMMED YASIR ALAA ALKFHIB", "e": "mohammed.yasir.alaa@iaoiraq.edu.iq"}, {"n": "NEAMAT MOHANAD HAMID ALBAKER", "e": "neamat.mohanad@iaoiraq.edu.iq"}, {"n": "RIANNA HOMAM JASSIM", "e": "rianna.homam@iaoiraq.edu.iq"}, {"n": "RITAJ MOHAMMED HAMID", "e": "ritaj.mohammed.hamid@iaoiraq.edu.iq"}, {"n": "RUQAYAH THAER ABDULZAHRA AL-AZRAQI", "e": "ruqayah.thaer@iaoiraq.edu.iq"}, {"n": "SAMA MOHAMMED ARIF ALSHAREEDA", "e": "sama.mohammed.arif@iaoiraq.edu.iq"}, {"n": "YASEEN HASSANAIN KHALID", "e": "yaseen.hassanain.khalid@iaoiraq.edu.iq"}, {"n": "YUSUF MAJID", "e": "yusuf.majid@iaoiraq.edu.iq"}, {"n": "ZAHRAA AMJED KAMIL", "e": "zahraa.amjed.kamil@iaoiraq.edu.iq"}, {"n": "ZAHRAA WISAM JABBAR ALAAMER", "e": "zahraa.wisam@iaoiraq.edu.iq"}, {"n": "ZAID ASAAD SABAH", "e": "zaid.asaad.sabah@iaoiraq.edu.iq"}, {"n": "ZAIN SAMER HUSSEIN SALMAN-ALKHALIL", "e": "zain.samer@iaoiraq.edu.iq"}]};
+let cls="9A",picked=null;
+const $=id=>document.getElementById(id);
+const title=s=>s.toLowerCase().replace(/(^|[\s\-'])([a-z])/g,(m,a,b)=>a+b.toUpperCase());
+function render(){
+  const q=$("q").value.trim().toLowerCase();
+  const items=DATA[cls].filter(s=>s.n.toLowerCase().includes(q));
+  const ul=$("list");ul.innerHTML="";
+  if(!items.length){ul.innerHTML='<div class="empty">No match. Check the spelling or the class.</div>';return}
+  items.forEach(s=>{
+    const li=document.createElement("li"),b=document.createElement("button");
+    b.textContent=title(s.n);
+    if(picked&&picked.e===s.e)b.setAttribute("aria-current","true");
+    b.onclick=()=>{picked=s;$("name").textContent=title(s.n);$("email").textContent=s.e;
+      $("out").classList.remove("hidden");resetCopy();render();
+      $("out").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"nearest"})};
+    li.appendChild(b);ul.appendChild(li);
+  });
+}
+function resetCopy(){document.querySelectorAll(".copy").forEach(b=>{b.textContent="Copy";b.classList.remove("done")})}
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  cls=t.dataset.c;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-pressed",x===t));
+  picked=null;$("out").classList.add("hidden");$("q").value="";render();
+});
+document.querySelectorAll(".copy").forEach(b=>b.onclick=async()=>{
+  const text=$(b.dataset.t).textContent;
+  try{await navigator.clipboard.writeText(text)}catch(e){
+    const r=document.createRange();r.selectNodeContents($(b.dataset.t));const s=getSelection();s.removeAllRanges();s.addRange(r);
+    try{document.execCommand("copy")}catch(_){}
+  }
+  resetCopy();b.textContent="Copied";b.classList.add("done");
+});
+$("q").addEventListener("input",render);
+render();
+</script>
+</body>
+</html>
