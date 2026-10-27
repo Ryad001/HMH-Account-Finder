@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IAI Teacher HMH Accounts</title>
+<style>
+  /* ===== Edit these to match the official IAI brand colors ===== */
+  :root{
+    --brand:#12305f;       /* main (navy) */
+    --brand-dark:#0b1f40;
+    --accent:#c8a14a;      /* accent (gold) */
+    --bg:#f4f6fa;
+    --card:#ffffff;
+    --text:#1b2433;
+    --muted:#6b7587;
+    --ok:#1f9d57;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--text)}
+  header{background:linear-gradient(135deg,var(--brand-dark),var(--brand));color:#fff;border-bottom:5px solid var(--accent)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  .head{display:flex;align-items:center;gap:18px;padding:22px 0}
+  .logo{height:72px;width:auto;background:#fff;border-radius:10px;padding:6px}
+  .logo-fallback{display:none;height:72px;min-width:72px;border-radius:10px;background:var(--accent);color:var(--brand-dark);font-weight:800;font-size:26px;align-items:center;justify-content:center;padding:0 14px}
+  header h1{margin:0;font-size:24px;letter-spacing:.3px}
+  header p{margin:4px 0 0;opacity:.85;font-size:14px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:24px 0 8px}
+  .search{flex:1;min-width:240px;padding:13px 16px;border:2px solid #d5dbe6;border-radius:10px;font-size:16px;outline:none;background:#fff}
+  .search:focus{border-color:var(--brand)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:9px;padding:11px 16px;font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:.15s}
+  .btn-primary{background:var(--brand);color:#fff}
+  .btn-primary:hover{background:var(--brand-dark)}
+  .btn-gold{background:var(--accent);color:var(--brand-dark)}
+  .btn-gold:hover{filter:brightness(.95)}
+  .btn-ghost{background:#eef1f7;color:var(--brand)}
+  .btn-ghost:hover{background:#e0e6f1}
+  .btn.copied{background:var(--ok)!important;color:#fff!important}
+  .steps{background:#fff;border-left:5px solid var(--accent);border-radius:10px;padding:14px 18px;margin:12px 0 22px;font-size:14px;color:var(--muted)}
+  .steps b{color:var(--brand)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;padding-bottom:50px}
+  .card{background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(18,48,95,.08);overflow:hidden;border-top:4px solid var(--brand)}
+  .card-h{padding:16px 18px 10px}
+  .name{font-size:18px;font-weight:700;color:var(--brand)}
+  .grade{display:inline-block;margin-top:6px;background:#fbf3df;color:#8a6a1c;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+  .row{display:flex;align-items:center;gap:8px;padding:8px 18px}
+  .lbl{width:78px;font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700}
+  .val{flex:1;font-family:Consolas,monospace;font-size:13px;background:#f4f6fa;padding:8px 10px;border-radius:8px;overflow-wrap:anywhere;user-select:all}
+  .row .btn{padding:7px 12px;font-size:12px}
+  .actions{display:flex;gap:8px;padding:12px 18px 18px}
+  .actions .btn{flex:1}
+  .empty{display:none;text-align:center;color:var(--muted);padding:40px}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:20px 0 40px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap head">
+    <!-- Put the official logo file next to this HTML file and name it logo.png -->
+    <img class="logo" src="logo.png" alt="The International Academy of Iraq"
+         onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
+    <div class="logo-fallback" id="lf">IAI</div>
+    <div>
+      <h1>The International Academy of Iraq</h1>
+      <p>Teacher HMH Accounts &mdash; copy your login details and sign in</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="toolbar">
+    <input id="q" class="search" type="search" placeholder="Search your name…" autocomplete="off">
+    <a class="btn btn-gold" id="loginTop" href="https://ed.hmhco.com" target="_blank" rel="noopener">Open HMH Login &#8599;</a>
+  </div>
+  <div class="steps"><b>How to:</b> 1) Find your name &nbsp;→&nbsp; 2) Press <b>Copy</b> next to the username and password &nbsp;→&nbsp; 3) Press <b>Open HMH Login</b> and paste them in.</div>
+
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty">No teacher found with that name.</div>
+</main>
+<footer>The International Academy of Iraq &middot; Internal use for staff only</footer>
+
+<script>
+  // ===== Settings =====
+  const HMH_LOGIN_URL = "https://ed.hmhco.com";
+
+  // [first, last, grade, school email, password, district, code, HMH username]
+  const RAW = [
+    ["Bilal","Ezzedin","8-10","bilal.ezzedin1@iaoiraq.edu.iq","Uiai001#","MDR","88770432","bilal.ezzedin@iaoiraq.edu.iq"],
+    ["Alina","Stangret","2-3","alina.stangret@iaoiraq.edu.iq","Uiai001#","MDR","88770432","alina.stangret@iaoiraq.edu.iq"],
+    ["Darren","Baker","6-7","darren.baker@iaoiraq.edu.iq","Uiai001#","MDR","88770432","darren.baker@iaoiraq.edu.iq"],
+    ["Layal Abi","Saab","K","layal.abisaab@iaoiraq.edu.iq","Uiai001#","MDR","88770432","layal.abisaab@iaoiraq.edu.iq"],
+    ["Zeina","Elsheikh","9-12","zeina.ahmad@iaoiraq.edu.iq","Uiai001#","MDR","88770432","zeina.ahmad@iaoiraq.edu.iq"],
+    ["Lewaa","Haidar","9-12","lewaa.haidar@iaoiraq.edu.iq","Uiai001#","MDR","88770432","lewaa.haidar@iaoiraq.edu.iq"],
+    ["Farah","Saoud","4-5","farah.mouin@iaoiraq.edu.iq","Uiai001#","MDR","88770432","farah.mouin@iaoiraq.edu.iq"],
+    ["Israa","Khalil","1-2","israa.khalil@iaoiraq.edu.iq","Uiai001#","MDR","88770432","israa.khalil@iaoiraq.edu.iq"],
+    ["Lateef Saleem","Azimy","2-6","lateef.saleem@iaoiraq.edu.iq","Uiai001#","MDR","88770432","lateef.saleem@iaoiraq.edu.iq"],
+    ["Sid Ahmed","Boucif","7-8","sid.ahmed@iaoiraq.edu.iq","Uiai001#","MDR","88770432","sid.ahmed@iaoiraq.edu.iq"],
+    ["Salwa Abdul","Rahman","1-2","salwa.abdulrahman@iaoiraq.edu.iq","Uiai001#","MDR","88770432","salwa.abdulrahman@iaoiraq.edu.iq"],
+    ["Julia","Ahmed","4-5","julia.ahmed@iaoiraq.edu.iq","Uiai001#","MDR","88770432","julia.ahmed@iaoiraq.edu.iq"],
+    ["Aadila","Moolla","6-9","aadila.moolla@iaoiraq.edu.iq","Uiai001#","MDR","88770432","aadila.moolla@iaoiraq.edu.iq"],
+    ["Curtis","Gease Jr","7-8","curtis.gease.jr@iaoiraq.edu.iq","Uiai001#","MDR","88770432","curtis.gease.jr@iaoiraq.edu.iq"],
+    ["Nicholas James","Groenewald","9-10","nicholas.james@iaoiraq.edu.iq","Uiai001#","MDR","88770432","nicholas.james@iaoiraq.edu.iq"],
+    ["Robert","Thomson","3","robert.thomson@iaoiraq.edu.iq","Uiai001#","MDR","88770432","robert.thomson@iaoiraq.edu.iq"],
+    ["Vanessa","Doleres","4","venessa.doleres@iaoiraq.edu.iq","Uiai001#","MDR","88770432","venessa.doleres@iaoiraq.edu.iq"],
+    ["Amine","Bouterbiat","1","amine.bouterbiat@iaoiraq.edu.iq","Uiai001#","MDR","88770432","amine.bouterbiat@iaoiraq.edu.iq"],
+    ["Jacqueline","Small","5","jacqueline.small@iaoiraq.edu.iq","Uiai001#","MDR","88770432","jacqueline.small@iaoiraq.edu.iq"],
+    ["Philip","Sadler","2","philip.sadler@iaoiraq.edu.iq","Uiai001#","MDR","88770432","philip.sadler@iaoiraq.edu.iq"],
+    ["Marwa","Charara","8-12","marwa.charara@iaoiraq.edu.iq","Uiai001#","MDR","88770432","marwa.charara@iaoiraq.edu.iq"],
+    ["Rafal","Hasan","K","rafal.hasan@iaoiraq.edu.iq","Uiai001#","MDR","88770432","rafal.hasan@iaoiraq.edu.iq"],
+    ["Atoia","N. Scott","K","atoia.scott@iaoiraq.edu.iq","Uiai001#","MDR","88770432","atoia.scott@iaoiraq.edu.iq"]
+  ];
+  const T = RAW.map(r => ({first:r[0],last:r[1],grade:r[2],email:r[3],pass:r[4],district:r[5],code:r[6],user:r[7]}));
+
+  document.getElementById("loginTop").href = HMH_LOGIN_URL;
+  const grid = document.getElementById("grid");
+  const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  function row(label, value){
+    return `<div class="row"><span class="lbl">${label}</span><span class="val">${esc(value)}</span>
+      <button class="btn btn-ghost" data-copy="${esc(value)}">Copy</button></div>`;
+  }
+
+  function render(list){
+    grid.innerHTML = list.map(t => `
+      <div class="card">
+        <div class="card-h">
+          <div class="name">${esc(t.first)} ${esc(t.last)}</div>
+          <span class="grade">${t.grade === "K" ? "Kindergarten" : "Grade " + esc(t.grade)}</span>
+        </div>
+        ${row("Username", t.user)}
+        ${row("Password", t.pass)}
+        ${row("District", t.district)}
+        ${row("Code", t.code)}
+        <div class="actions">
+          <button class="btn btn-primary" data-copy="${esc(t.user)}\t${esc(t.pass)}" data-label="Copy both">Copy both</button>
+          <a class="btn btn-gold" href="${HMH_LOGIN_URL}" target="_blank" rel="noopener">Open HMH Login &#8599;</a>
+        </div>
+      </div>`).join("");
+    document.getElementById("empty").style.display = list.length ? "none" : "block";
+  }
+
+  async function copyText(text){
+    try { await navigator.clipboard.writeText(text); }
+    catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand("copy"); ta.remove();
+    }
+  }
+
+  grid.addEventListener("click", async e => {
+    const b = e.target.closest("[data-copy]");
+    if(!b) return;
+    let text = b.dataset.copy;
+    if(b.dataset.label === "Copy both") text = text.replace("\t", "\n");
+    await copyText(text);
+    const old = b.textContent;
+    b.textContent = "Copied ✓"; b.classList.add("copied");
+    setTimeout(() => { b.textContent = old; b.classList.remove("copied"); }, 1400);
+  });
+
+  document.getElementById("q").addEventListener("input", e => {
+    const q = e.target.value.trim().toLowerCase();
+    render(T.filter(t => (t.first + " " + t.last + " " + t.user).toLowerCase().includes(q)));
+  });
+
+  render(T);
+</script>
+</body>
+</html>
