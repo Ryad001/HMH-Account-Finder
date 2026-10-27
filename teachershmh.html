@@ -7,9 +7,9 @@
 <style>
   /* ===== Edit these to match the official IAI brand colors ===== */
   :root{
-    --brand:#12305f;       /* main (navy) */
-    --brand-dark:#0b1f40;
-    --accent:#c8a14a;      /* accent (gold) */
+    --brand:#93242D;       /* main (navy) */
+    --brand-dark:#6e1b23;
+    --accent:#e0b04f;      /* accent (gold) */
     --bg:#f4f6fa;
     --card:#ffffff;
     --text:#1b2433;
@@ -37,9 +37,14 @@
   .btn-ghost:hover{background:#e0e6f1}
   .btn.copied{background:var(--ok)!important;color:#fff!important}
   .steps{background:#fff;border-left:5px solid var(--accent);border-radius:10px;padding:14px 18px;margin:12px 0 22px;font-size:14px;color:var(--muted)}
+  .steps{color:var(--brand);line-height:1.7;font-size:15px}
+  .steps h3{margin:0 0 6px;font-size:17px}
+  .steps a{color:var(--brand);font-weight:700;text-decoration:none}
+  .steps a:hover{text-decoration:underline}
+  .steps ul{margin:4px 0 4px 22px}
   .steps b{color:var(--brand)}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;padding-bottom:50px}
-  .card{background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(18,48,95,.08);overflow:hidden;border-top:4px solid var(--brand)}
+  .card{background:var(--card);border-radius:14px;box-shadow:0 2px 10px rgba(147,36,45,.12);overflow:hidden;border-top:4px solid var(--brand)}
   .card-h{padding:16px 18px 10px}
   .name{font-size:18px;font-weight:700;color:var(--brand)}
   .grade{display:inline-block;margin-top:6px;background:#fbf3df;color:#8a6a1c;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
@@ -56,8 +61,8 @@
 <body>
 <header>
   <div class="wrap head">
-    <!-- Put the official logo file next to this HTML file and name it logo.png -->
-    <img class="logo" src="logo.png" alt="The International Academy of Iraq"
+    <!-- Uses the same icon.png as the student page (keep it in the same folder) -->
+    <img class="logo" src="icon.png" alt="The International Academy of Iraq"
          onerror="this.style.display='none';document.getElementById('lf').style.display='flex'">
     <div class="logo-fallback" id="lf">IAI</div>
     <div>
@@ -70,22 +75,35 @@
 <main class="wrap">
   <div class="toolbar">
     <input id="q" class="search" type="search" placeholder="Search your name…" autocomplete="off">
-    <a class="btn btn-gold" id="loginTop" href="https://ed.hmhco.com" target="_blank" rel="noopener">Open HMH Login &#8599;</a>
+    <a class="btn btn-gold" id="loginTop" href="https://www.hmhco.com/ui/login" target="_blank" rel="noopener">Open HMH Login &#8599;</a>
   </div>
-  <div class="steps"><b>How to:</b> 1) Find your name &nbsp;→&nbsp; 2) Press <b>Copy</b> next to the username and password &nbsp;→&nbsp; 3) Press <b>Open HMH Login</b> and paste them in.</div>
+  <div class="steps">
+    <h3>&#128216; How to Log in to HMH</h3>
+    <ol>
+      <li>Go to: <a href="https://www.hmhco.com/ui/login" target="_blank" rel="noopener">https://www.hmhco.com/ui/login</a></li>
+      <li>Select the following:
+        <ul>
+          <li><b>Country:</b> United States</li>
+          <li><b>State:</b> District of Columbia</li>
+          <li><b>District / Independent School:</b> ALL PRINTS</li>
+        </ul>
+      </li>
+      <li>Input your <b>Username</b> and <b>Password</b> to log in.</li>
+    </ol>
+  </div>
 
   <div class="grid" id="grid"></div>
   <div class="empty" id="empty">No teacher found with that name.</div>
 </main>
-<footer>The International Academy of Iraq &middot; Internal use for staff only</footer>
+<footer>&copy; 2025 International Academy of Iraq &middot; Internal use for staff only</footer>
 
 <script>
   // ===== Settings =====
-  const HMH_LOGIN_URL = "https://ed.hmhco.com";
+  const HMH_LOGIN_URL = "https://www.hmhco.com/ui/login";
 
   // [first, last, grade, school email, password, district, code, HMH username]
   const RAW = [
-    ["Bilal","Ezzedin","8-10","bilal.ezzedin1@iaoiraq.edu.iq","Uiai001#","MDR","88770432","bilal.ezzedin1@iaoiraq.edu.iq"],
+    ["Bilal","Ezzedin","8-10","bilal.ezzedin1@iaoiraq.edu.iq","Uiai001#","MDR","88770432","bilal.ezzedin@iaoiraq.edu.iq"],
     ["Alina","Stangret","2-3","alina.stangret@iaoiraq.edu.iq","Uiai001#","MDR","88770432","alina.stangret@iaoiraq.edu.iq"],
     ["Darren","Baker","6-7","darren.baker@iaoiraq.edu.iq","Uiai001#","MDR","88770432","darren.baker@iaoiraq.edu.iq"],
     ["Layal Abi","Saab","K","layal.abisaab@iaoiraq.edu.iq","Uiai001#","MDR","88770432","layal.abisaab@iaoiraq.edu.iq"],
@@ -129,8 +147,6 @@
         </div>
         ${row("Username", t.user)}
         ${row("Password", t.pass)}
-        ${row("District", t.district)}
-        ${row("Code", t.code)}
         <div class="actions">
           <button class="btn btn-primary" data-copy="${esc(t.user)}\t${esc(t.pass)}" data-label="Copy both">Copy both</button>
           <a class="btn btn-gold" href="${HMH_LOGIN_URL}" target="_blank" rel="noopener">Open HMH Login &#8599;</a>
